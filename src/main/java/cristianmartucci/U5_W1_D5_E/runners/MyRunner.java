@@ -50,19 +50,20 @@ public class MyRunner implements CommandLineRunner {
         Reservation r2 = new Reservation(s2,u2, LocalDate.now().minusDays(1));
         Reservation r3 = new Reservation(s3,u3, LocalDate.now().minusDays(2));
 
-//        buildingService.save(b1);
-//        buildingService.save(b2);
-//        buildingService.save(b3);
-//        stationService.save(s1);
-//        stationService.save(s2);
-//        stationService.save(s3);
-//        userService.save(u1);
-//        userService.save(u2);
-//        userService.save(u3);
-//        reservationService.save(r1);
-//        reservationService.save(r2);
-//        reservationService.save(r3);
+        buildingService.save(b1);
+        buildingService.save(b2);
+        buildingService.save(b3);
+        stationService.save(s1);
+        stationService.save(s2);
+        stationService.save(s3);
+        userService.save(u1);
+        userService.save(u2);
+        userService.save(u3);
+        reservationService.save(r1);
+        reservationService.save(r2);
+        reservationService.save(r3);
 
+        System.out.println("____________Prova salvataggio prenotazione con postazione occupata____________");
         try{
             Station stationFromDb = stationService.getStationFromDb("cf5d29f6-17f9-4ad3-ac25-5e6b9998690d");
             User userFromDb = userService.getUserFromDb("b3773746-d528-4138-9567-715ad907ced4");
@@ -72,8 +73,17 @@ public class MyRunner implements CommandLineRunner {
             System.out.println(exception.getMessage());
         }
 
+        System.out.println("____________Prova salvataggio prenotazione in una data con prenotazione già effettuata____________");
+        try{
+            Station stationFromDb = stationService.getStationFromDb("f2f5d4c6-0942-40b9-a514-70ca14254803");
+            User userFromDb = userService.getUserFromDb("f80c72cd-73b0-46aa-acc8-d224ddb8ebe8");
+            Reservation reservation = new Reservation(stationFromDb, userFromDb, LocalDate.now());
+            reservationService.save(reservation);
+        }catch (RuntimeException exception){
+            System.out.println(exception.getMessage());
+        }
 
+        System.out.println("____________Ricerca postazioni tramite città e stato____________");
         stationService.getStation("Cira nell'emilia", StationType.OPENSPACE).forEach(System.out::println);
-
     }
 }
