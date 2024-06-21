@@ -27,12 +27,13 @@ public class Reservation {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private LocalDate reservation_date;
+    @Column(name = "reservation_date")
+    private LocalDate reservationDate;
 
     public Reservation(Station station, User user, LocalDate reservation_date) {
         this.station = station;
         this.user = user;
-        this.reservation_date = reservation_date;
+        this.reservationDate = reservation_date;
     }
 
     @Override
@@ -41,7 +42,7 @@ public class Reservation {
                 "reservation_id=" + reservation_id +
                 ", station=" + station +
                 ", user=" + user +
-                ", reservation_date=" + reservation_date +
+                ", reservation_date=" + reservationDate +
                 '}';
     }
 }

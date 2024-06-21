@@ -10,6 +10,8 @@ import cristianmartucci.U5_W1_D5_E.repositories.StationRepository;
 import cristianmartucci.U5_W1_D5_E.repositories.UserRepository;
 import cristianmartucci.U5_W1_D5_E.services.BuildingService;
 import cristianmartucci.U5_W1_D5_E.services.ReservationService;
+import cristianmartucci.U5_W1_D5_E.services.StationService;
+import cristianmartucci.U5_W1_D5_E.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -26,10 +28,10 @@ public class MyRunner implements CommandLineRunner {
     private ReservationService reservationService;
 
     @Autowired
-    private StationRepository stationRepository;
+    private StationService stationService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -51,15 +53,30 @@ public class MyRunner implements CommandLineRunner {
 //        buildingService.save(b1);
 //        buildingService.save(b2);
 //        buildingService.save(b3);
-//        stationRepository.save(s1);
-//        stationRepository.save(s2);
-//        stationRepository.save(s3);
-//        userRepository.save(u1);
-//        userRepository.save(u2);
-//        userRepository.save(u3);
+//        stationService.save(s1);
+//        stationService.save(s2);
+//        stationService.save(s3);
+//        userService.save(u1);
+//        userService.save(u2);
+//        userService.save(u3);
 //        reservationService.save(r1);
 //        reservationService.save(r2);
 //        reservationService.save(r3);
 
+        try{
+            Station stationFromDb = stationService.getStationFromDb("cf5d29f6-17f9-4ad3-ac25-5e6b9998690d");
+            User userFromDb = userService.getUserFromDb("b3773746-d528-4138-9567-715ad907ced4");
+            Reservation reservation = new Reservation(stationFromDb, userFromDb, LocalDate.now());
+            reservationService.save(reservation);
+        }catch (RuntimeException exception){
+            System.out.println(exception.getMessage());
+        }
+
+        try{
+            User userFromDb = userService.getUserFromDb("b3773746-d528-4138-9567-715ad907ced4");
+            userService.ge
+        }catch (RuntimeException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 }
