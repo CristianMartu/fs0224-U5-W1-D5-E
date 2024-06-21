@@ -3,10 +3,12 @@ package cristianmartucci.U5_W1_D5_E.services;
 import cristianmartucci.U5_W1_D5_E.entities.Building;
 import cristianmartucci.U5_W1_D5_E.entities.Station;
 import cristianmartucci.U5_W1_D5_E.entities.User;
+import cristianmartucci.U5_W1_D5_E.enums.StationType;
 import cristianmartucci.U5_W1_D5_E.repositories.StationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -20,5 +22,9 @@ public class StationService {
 
     public Station getStationFromDb(String stationId) {
         return stationRepository.findById(UUID.fromString(stationId)).orElseThrow(() -> new RuntimeException("Nessuna postazione trovata con id: " + stationId));
+    }
+
+    public List<Station> getStation(String city, StationType type){
+        return stationRepository.filterByCityAndStationType(city, type);
     }
 }

@@ -19,6 +19,7 @@ public class Station {
     private UUID station_id;
     private String description;
     @Enumerated(EnumType.STRING)
+    @Column(name = "station_type")
     private StationType stationType;
     private int max_number_user;
 

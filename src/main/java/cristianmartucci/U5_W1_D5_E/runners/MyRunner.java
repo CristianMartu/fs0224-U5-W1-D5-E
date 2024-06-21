@@ -72,11 +72,8 @@ public class MyRunner implements CommandLineRunner {
             System.out.println(exception.getMessage());
         }
 
-        try{
-            User userFromDb = userService.getUserFromDb("b3773746-d528-4138-9567-715ad907ced4");
-            userService.ge
-        }catch (RuntimeException exception){
-            System.out.println(exception.getMessage());
-        }
+
+        stationService.getStation("Cira nell'emilia", StationType.OPENSPACE).forEach(System.out::println);
+
     }
 }
